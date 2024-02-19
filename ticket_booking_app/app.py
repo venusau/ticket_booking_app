@@ -1,16 +1,16 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:vicky2003@localhost/ticket_booking'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:vicky2003@localhost/ticket_booking'
 db = SQLAlchemy(app)
 
 class Movies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
-    poster_url=db.Column(db.String(255),nullable=True)
+    poster_url = db.Column(db.String(255), nullable=True)
 
 class Showtimes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -34,10 +34,10 @@ def index():
 @app.route('/book/<int:movie_id>/<int:showtime_id>', methods=['POST'])
 def book_tickets(movie_id, showtime_id):
     num_tickets = request.form.get('num_tickets')
-    if num_tickets and num_tickets.isdigit():
+    if num_tickets.isdigit():
         num_tickets = int(num_tickets)
         showtime = Showtimes.query.get(showtime_id)
-        if showtime.tickets_available >= num_tickets:
+        if showtime and showtime.tickets_available >= num_tickets:
             showtime.tickets_available -= num_tickets
             db.session.commit()
             booking = Bookings(user_id=1, showtime_id=showtime_id, num_tickets=num_tickets)
@@ -49,8 +49,11 @@ def book_tickets(movie_id, showtime_id):
 @app.route('/tickets_options/<int:movie_id>')
 def tickets_options(movie_id):
     movie = Movies.query.get(movie_id)
-    # Adjusted to fetch movie description instead of movie dates
-    return render_template('tickets_options.html', movie=movie, showtimes=movie.showtimes)
+    if movie:
+        showtimes = movie.showtimes
+        return render_template('tickets_options.html', movie=movie, showtimes=showtimes)
+    else:
+        return "Movie not found."
 
 @app.route('/booking-confirmation')
 def booking_confirmation():

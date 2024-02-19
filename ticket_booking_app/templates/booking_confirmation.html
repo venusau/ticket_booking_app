@@ -7,28 +7,29 @@
     <style>
         /* Enhanced CSS styles for the confirmation message */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #1a1a1a;
+            color: #ffffff; /* Text color */
         }
         .confirmation-container {
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #2a2a2a; /* Container background color */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Container shadow */
         }
         .confirmation-message {
             font-size: 24px;
-            color: #007bff;
+            color: #00ff00; /* Message color */
             margin-bottom: 20px;
         }
         .confirmation-text {
             font-size: 18px;
-            color: #333;
+            color: #cccccc; /* Text color */
         }
         .confirmation-button {
             padding: 10px 20px;
@@ -45,11 +46,12 @@
             background-color: #0056b3;
         }
     </style>
+    
 </head>
 <body>
     <div class="confirmation-container">
-        <img src="D:\others\CodSoft\ticket_booking_app\templates\CineBless.png" alt="CineBless Logo">
-        <div class="confirmation-message">
+        <img src="{{ url_for('static', filename='CineBless.png') }}" alt="CineBless Logo">
+         <div class="confirmation-message">
             <h2>Booking Confirmed!</h2>
         </div>
         <p class="confirmation-text">Your tickets have been successfully booked. Get ready for an amazing movie experience with CineBless!</p>

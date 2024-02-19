@@ -3,79 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Ticket Booking</title>
+    <title>CineBless</title>
     <!-- Stylesheets and scripts -->
     <style>
         /* Style for the navigation bar */
         .navbar {
-            background-color: #333;
+            background-color: #000000;
             overflow: hidden;
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         }
-
+    
         .navbar a {
             float: left;
             display: block;
-            color: #f2f2f2;
+            color: #ffffff;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
             font-size: 17px;
         }
-
+    
         .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #222222;
+            color: #00ff00;
         }
-
+    
         /* Style for the main content */
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('background.jpg');
-            background-size: cover;
-            background-position: center;
+            background-color: #0a0a0a;
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
         }
-
+    
         .container {
             margin: auto;
             padding: 20px;
             max-width: 800px;
         }
-
+    
         /* Style for movie cards */
         .movie-card {
-            background-color: #fff;
+            background-color: #191919;
             border-radius: 10px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             padding: 20px;
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
-
+    
         .movie-card:hover {
             transform: translateY(-5px);
         }
-
+    
         .movie-card h2 {
             margin-top: 0;
             font-size: 24px;
-            color: #333;
+            color: #ffffff;
             margin-bottom: 10px;
         }
-
+    
         .movie-card p {
-            color: #666;
+            color: #cccccc;
             margin-bottom: 15px;
+            font-size: 20px; /* Larger font size */
+            font-family: 'Arial', sans-serif; /* Cool font */
         }
-
+    
         /* Style for the book button */
         .book-button {
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            background-color: #00ff00;
+            color: #000000;
             border: none;
             cursor: pointer;
             border-radius: 5px;
@@ -84,11 +84,11 @@
             display: inline-block;
             transition: background-color 0.3s;
         }
-
+    
         .book-button:hover {
-            background-color: #0056b3;
+            background-color: #00cc00;
         }
-        
+    
         /* Style for movie poster */
         .movie-poster {
             max-width: 100%;
@@ -97,6 +97,8 @@
             margin-bottom: 10px;
         }
     </style>
+    
+    
 </head>
 <body>
 
@@ -108,14 +110,13 @@
 
 <!-- Main Content -->
 <div class="container">
-    <h1 style="color: #fff;">CineBless</h1>
-    <p style="color: #fff;">Welcome to our movie ticket booking platform! Browse through the latest movies and book your tickets.</p>
+    <h1 style="color: #3802c0;">CineBless</h1>
 
     <!-- Movie Cards -->
     {% for movie in movies %}
     <div class="movie-card">
         <h2>{{ movie.title }}</h2>
-        <img src="" alt="{{ movie.title }}" class="movie-poster"> <!-- Placeholder image -->
+        <img src="{{ url_for('static', filename=movie.poster_url) }}" alt="{{ movie.title }}" class="movie-poster">
         <p>{{ movie.description }}</p>
         <a href="{{ url_for('tickets_options', movie_id=movie.id) }}" class="book-button">Book Tickets</a>
     </div>
